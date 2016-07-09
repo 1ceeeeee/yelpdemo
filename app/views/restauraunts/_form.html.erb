@@ -1,4 +1,4 @@
-<%= form_for(restauraunt) do |f| %>
+<%= form_for(restauraunt, :html => { multipart: true }) do |f| %>
   <% if restauraunt.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(restauraunt.errors.count, "error") %> prohibited this restauraunt from being saved:</h2>
@@ -29,6 +29,11 @@
   <div class="form-group">
     <%= f.label :website %>
     <%= f.text_field :website, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.file_field :image, class:"form-control" %>
   </div>
 
   <div class="actions">
