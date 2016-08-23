@@ -1,24 +1,48 @@
+<div class="row">
+	<div class="col-md-3">
+		<%= image_tag @restauraunt.image_url %>
+		<h2>
+		  <%= @restauraunt.name %>
+		</h2>
 
-<%= image_tag @restauraunt.image_url %>
-<p>
-  <strong>Name:</strong>
-  <%= @restauraunt.name %>
-</p>
+		<p>
+		  <strong>Address:</strong>
+		  <%= @restauraunt.address %>
+		</p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @restauraunt.address %>
-</p>
+		<p>
+		  <strong>Phone:</strong>
+		  <%= @restauraunt.phone %>
+		</p>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @restauraunt.phone %>
-</p>
+		<p>
+		  <strong>Website:</strong>
+		  <%= link_to @restauraunt.website, @restauraunt.website %>
+		</p>
+		<%= link_to "Write a Review", new_restauraunt_review_path(@restauraunt), class: "btn btn-primary" %>
+	</div>
+	<div class="col-md-9">
+		<% if @reviews.blank? %>
+			<h3>No reviews yet. Be the first to write one!</h3>
+		<% else %>			
+			<% @reviews.each do |review| %>
+			<div class="star-rating" data-score= <%= review.rating %> ></div>			
+			<p><%= review.comment%></p>
+		<% end %>
+<% end %>
+	</div>
+</div>
 
-<p>
-  <strong>Website:</strong>
-  <%= @restauraunt.website %>
-</p>
 
 <%= link_to 'Edit', edit_restauraunt_path(@restauraunt), class:"btn btn-link" %> |
 <%= link_to 'Back', restauraunts_path, class:"btn btn-link" %>
+
+<script>
+	$('.star-rating').raty({
+		readOnly: true,
+		path: 'https://s3-us-west-2.amazonaws.com/yelpdem0/stars',
+		score: function() {
+    		return $(this).attr('data-score');
+  }
+	});
+</script>
